@@ -7,7 +7,7 @@ with open("BEP179_transportations.txt", "r") as f:
         list_of_transportations.append(line.split("\n")[0])
     f.close()
 
-set_list_of_transportations = set(list_of_transportations[480:])
+set_list_of_transportations = set(list_of_transportations)
 
 route_to_business_central_home_page = ScrapeBusinessCentral()
 route_to_business_central_home_page.login_to_business_central()
@@ -20,6 +20,16 @@ with open('result_2.txt', 'a') as file:
         route_to_business_central_home_page.filter_by_order_num(transportation)
         #time.sleep(0.5)
         result = route_to_business_central_home_page.locate_transportation_order_rows_DECORATED_2()
-        print(transportation,result,"\n",time.time() - time_0)
-        file.write(f"{str(result[0])}\n")
+        #file.write(result[0])
+        transport_no_2 = result[0][0][0]
+        transport_type_2 = result[0][0][3]
+        transport_time_2 = result[0][0][1]
+        transport_odometer_2 = result[0][0][2]
+        transport_no_1 = result[0][1][0]
+        transport_type_1 = result[0][1][3]
+        transport_time_1 = result[0][1][1]
+        transport_odometer_1 = result[0][1][2]
+        print(time.time() - time_0)
+        file.write(f"{transport_no_2},{transport_type_2},{transport_time_2},{transport_odometer_2}\n")
+        file.write(f"{transport_no_1},{transport_type_1},{transport_time_1},{transport_odometer_1}\n")
 
